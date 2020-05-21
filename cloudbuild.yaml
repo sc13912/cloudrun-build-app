@@ -1,0 +1,40 @@
+steps:
+  # Build NodeJs docker image
+  - name: "gcr.io/cloud-builders/docker"
+    args:
+      [
+        "build",
+        "-t",
+        "${_GCR_REGION}.gcr.io/$PROJECT_ID/${_SERVICE_NAME}:$COMMIT_SHA",
+        ".",
+      ]
+
+  # Push NodeJs demo app image to Google Cloud Registry
+  - name: "gcr.io/cloud-builders/docker"
+    args:
+      ["push", "${_GCR_REGION}.gcr.io/$PROJECT_ID/${_SERVICE_NAME}:$COMMIT_SHA"]
+
+  # Deploy the container image to Cloud Run
+  - name: "gcr.io/cloud-builders/gcloud"
+    args:
+      - run
+      - deploy
+      - ${_SERVICE_NAME}
+      - --image=${_GCR_REGION}.gcr.io/$PROJECT_ID/${_SERVICE_NAME}:$COMMIT_SHA
+      - --region=${_LOCATION}
+      - --platform=managed
+
+images:
+  - "${_GCR_REGION}.gcr.io/$PROJECT_ID/${_SERVICE_NAME}:$COMMIT_SHA"
+
+
+timeout: 1200s
+substitutions:
+  _LOCATION: us-west1 
+  _GCR_REGION: us 
+  _SERVICE_NAME: cloudrun-demo
+
+
+
+
+
