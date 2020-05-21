@@ -2,7 +2,7 @@ import express from 'express';
 import http from 'http';
 import path from 'path';
 
-const SERVER_PORT = 3000;
+const SERVER_PORT = 8080;
 export function health() {
     const router = new express.Router();
 
