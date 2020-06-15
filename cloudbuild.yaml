@@ -28,8 +28,8 @@ images:
 
 timeout: 1200s
 substitutions:
-  _LOCATION: us-west1 
-  _GCR_REGION: us 
+  _LOCATION: asia-northeast1 
+  _GCR_REGION: asia 
   _SERVICE_NAME: cloudrun-demo
 
 
