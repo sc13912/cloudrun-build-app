@@ -1,2 +1,2 @@
 # cloudrun-demo-app
-cloudrun pipeline test01
+cloudrun pipeline test
